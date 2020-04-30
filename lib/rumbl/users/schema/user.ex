@@ -14,9 +14,9 @@ defmodule Rumbl.Users.Schema.User do
     timestamps()
   end
 
-  def changeset(user, params \\ %{}) do
+  def changeset(user, attrs \\ %{}) do
     user
-    |> cast(params, @fields)
+    |> cast(attrs, @fields)
     |> validate_length(:username, min: 1, max: 20)
     |> validate_length(:password, min: 6, max: 100)
     |> put_pass_hash()
