@@ -2,21 +2,23 @@ defmodule Rumbl.Users.Schema.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_fields ~w(name username)a
-  @fields @required_fields ++ ~w(password)a
+  alias Rumbl.Videos.Schema.Video
+
+  @required_fields ~w(name username password)a
 
   schema "users" do
     field :name, :string
     field :username, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    has_many :videos, Video
 
     timestamps()
   end
 
   def changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, @fields)
+    |> cast(attrs, @required_fields)
     |> validate_length(:username, min: 1, max: 20)
     |> validate_length(:password, min: 6, max: 100)
     |> put_pass_hash()
