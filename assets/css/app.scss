@@ -3,6 +3,10 @@
 @import "./phoenix.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../node_modules/font-awesome/css/font-awesome.css";
+.custom-select {
+    font-size: 15px;
+}
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;

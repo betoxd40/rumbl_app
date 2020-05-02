@@ -1,7 +1,9 @@
 defmodule RumblWeb.VideoController do
   use RumblWeb, :controller
 
-  alias Rumbl.{Videos, Users}
+  alias Rumbl.{Videos, Users, Categories}
+
+  plug :load_categories when action in [:new, :create, :edit, :update]
 
   def index(conn, _params, user) do
     videos = Users.get_videos(user)
@@ -64,5 +66,10 @@ defmodule RumblWeb.VideoController do
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
+  end
+
+  defp load_categories(conn, _) do
+    categories = Categories.list_categories()
+    assign(conn, :categories, categories)
   end
 end
